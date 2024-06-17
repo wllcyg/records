@@ -7,10 +7,9 @@ module.exports = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: 'me',
-          name: 'awesome-thing'
+          owner: 'wllcyg',
+          name: 'records'
         },
-        authToken: process.env.PERSONAL_ACCESS_TOKEN,
         "prerelease": false,
         "draft": true
       },

@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master  # 当提交以 v 开头的标签时触发
+env:
+  GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
 jobs:
   release:
