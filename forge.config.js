@@ -1,6 +1,6 @@
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
-
+console.log(process.env.GITHUB_TOKEN,'GITHUB_TOKEN')
 module.exports = {
   publishers: [
     {
