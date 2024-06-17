@@ -2,8 +2,8 @@ name: Build and Release
 
 on:
   push:
-    tags:
-      - 'v*.*.*'  # 当提交以 v 开头的标签时触发
+    branches:
+      - master  # 当提交以 v 开头的标签时触发
 
 jobs:
   release:
