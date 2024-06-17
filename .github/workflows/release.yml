@@ -27,8 +27,5 @@ jobs:
         run: npm install  # 安装项目依赖
 
 
-      - name: Package the app
-        run: npm run make  # 使用 Electron Forge 打包应用
-
       - name: Publish the app
         run: npm run publish -- --publish always  # 发布应用
