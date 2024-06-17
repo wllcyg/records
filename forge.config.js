@@ -10,7 +10,9 @@ module.exports = {
           owner: 'me',
           name: 'awesome-thing'
         },
-        prerelease: true
+        authToken:process.env.GITHUB_TOKEN,
+        "prerelease": false,
+        "draft": true
       },
     }
   ],
