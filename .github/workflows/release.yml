@@ -31,6 +31,4 @@ jobs:
         run: npm run make  # 使用 Electron Forge 打包应用
 
       - name: Publish the app
-        env:
-          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # GitHub Token，用于发布 Release
         run: npm run publish -- --publish always  # 发布应用
