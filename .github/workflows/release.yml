@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]  # 在 macOS 和 Windows 环境中运行
+        os: [ macos-latest, windows-latest ]  # 在 macOS 和 Windows 环境中运行
 
     steps:
       - name: Check out Git repository
@@ -28,7 +28,27 @@ jobs:
       - name: Package the app
         run: npm run make  # 使用 Electron Forge 打包应用
 
-      - name: Publish the app
+      - name: Archive production artifacts
+        run: zip -r release.zip ./out  # 压缩构建产物
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub Token，用于发布 Release
-        run: npm run publish -- --publish always  # 发布应用
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip
