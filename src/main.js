@@ -5,13 +5,13 @@ import fileOperation from "./mainprocess/utils";
 if (require('electron-squirrel-startup')) {
     app.quit();
 }
-
+let mainWindow;
 const createWindow = () => {
     const primaryDisplay = screen.getPrimaryDisplay()
     const {width, height} = primaryDisplay.workAreaSize
     console.log(width, height)
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+     mainWindow = new BrowserWindow({
         width: 800,
         height:650,
         transparent: true,

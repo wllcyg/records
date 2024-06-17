@@ -11,7 +11,7 @@ module.exports = {
           name: 'awesome-thing'
         },
         prerelease: true
-      }
+      },
     }
   ],
   packagerConfig: {

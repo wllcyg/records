@@ -1,5 +1,6 @@
 import { ipcMain, dialog } from 'electron';
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
 const { path:ffmpegPath } = require('@ffmpeg-installer/ffmpeg');
@@ -27,7 +28,8 @@ export function CreateTempFile() {
 export default function fileOperation () {
     let writeStream = undefined;
     let pathStr = undefined;
-    let fileName = undefined
+    let fileName = undefined;
+    let process = 0
     ipcMain.handle('create-temp-file',  async (_,value) =>{
         console.log('create file')
         const res = await CreateTempFile();
@@ -46,17 +48,25 @@ export default function fileOperation () {
     ipcMain.handle('save-data',  (_,formatValue) =>{
         const {format,filePath} = formatValue
         const outPutPath = filePath+`\\`+`${fileName}${format}`;
+        const maxThread = os.cpus().length;
+        console.log(maxThread)
         return new Promise((resolve, reject) => {
             ffmpeg(pathStr)
+
                 .output(outPutPath)
+                .outputOptions([`-threads ${maxThread}`])
                 .on('start',() => {
 
                 })
-                .on('progress',() => {
-                    console.log('转换中!!!!')
+                .on('progress',(_progress) => {
+                    console.log(_progress,'_progress')
+                    process = _progress
                 })
                 .on('end', () => {
                     writeStream.end()
+                    process = {
+                        timemark:'00:00:00.00'
+                    }
                     fs.unlink(pathStr,() => {
 
                     })
@@ -77,7 +87,7 @@ export default function fileOperation () {
     });
     ipcMain.handle('save-dialog',   async (_,value) =>{
         const res = await dialog.showOpenDialog({
-            title:'保存视频文件',
+            title:'保存视频文件路径',
             properties: ['openDirectory']
         })
         if (res.canceled){
@@ -85,6 +95,10 @@ export default function fileOperation () {
         }else {
             return res.filePaths[0];
         }
+    })
+    // 发送保存进度
+    ipcMain.handle('get-processes', () => {
+        return process;
     })
 
 }

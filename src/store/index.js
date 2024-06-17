@@ -11,7 +11,8 @@ export const useStatusStore = defineStore('videoStatus', {
          * */
         return {
             status: 0,
-            url:''
+            url:'',
+            duration:0,
         }
     },
     actions: {
@@ -21,6 +22,9 @@ export const useStatusStore = defineStore('videoStatus', {
         },
         setUrl(value) {
             this.url = value
+        },
+        setDuration(value) {
+            this.duration = value
         }
     }
 })

@@ -1,7 +1,7 @@
 {
   "name": "record",
   "productName": "record",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "My Electron application record",
   "main": ".vite/build/main.js",
   "scripts": {
@@ -29,7 +29,7 @@
   "keywords": [],
   "author": {
     "name": "wll_cyg@126.com",
-    "email": ".."
+    "email": "wll_cyg@126.com"
   },
   "license": "MIT",
   "dependencies": {

@@ -6,5 +6,6 @@ contextBridge.exposeInMainWorld('electron', {
     createTempFile: (value) => ipcRenderer.invoke('create-temp-file',value),
     blobData: (value) => ipcRenderer.invoke('blob-to-file',value),
     saveData: (value) => ipcRenderer.invoke('save-data',value),
-    saveDialog: () => ipcRenderer.invoke('save-dialog')
+    saveDialog: () => ipcRenderer.invoke('save-dialog'),
+    getProcesses: () => ipcRenderer.invoke('get-processes'),
 });
